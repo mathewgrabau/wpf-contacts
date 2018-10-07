@@ -27,6 +27,8 @@ namespace ContactsApp
         private void _saveButton_Click(object sender, RoutedEventArgs e)
         {
             // Saving the information here.
+
+            Close();
         }
     }
 }

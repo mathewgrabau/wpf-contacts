@@ -24,5 +24,12 @@ namespace ContactsApp
         {
             InitializeComponent();
         }
+
+        private void _newContactButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the window for inputting the data
+            var newContactWindow = new NewContactWindow();
+            newContactWindow.ShowDialog();
+        }
     }
 }
