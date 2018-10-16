@@ -8,7 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Margin="10">
         <Button x:Name="_newContactButton" Content="New contact" Click="_newContactButton_Click"/>
-        <ListView Margin="0 5 0 0" x:Name="_contactListView">
+        <ListView Margin="0 5 0 0"
+                  Height="250"
+                  x:Name="_contactListView">
             <ListView.ItemTemplate>
                 <!-- need the data template to render the data -->
                 <DataTemplate>
