@@ -41,12 +41,19 @@ namespace ContactsApp
 
         void ReadDatabase()
         {
+            List<Contact> contacts = null;
+
             using (var connection = new SQLiteConnection(App.DatabasePath))
             {
                 connection.CreateTable<Contact>();
                 // Grabbing the data here.
-                var contacts = connection.Table<Contact>().ToList();
+                contacts = connection.Table<Contact>().ToList();
+            }
 
+            if (contacts != null)
+            {
+                // Prevents the list from getting duplicate entries
+                _contactListView.ItemsSource = contacts;
             }
         }
     }
