@@ -23,6 +23,8 @@ namespace ContactsApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Contact> _contacts = new List<Contact>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,19 +43,32 @@ namespace ContactsApp
 
         void ReadDatabase()
         {
-            List<Contact> contacts = null;
-
             using (var connection = new SQLiteConnection(App.DatabasePath))
             {
                 connection.CreateTable<Contact>();
                 // Grabbing the data here.
-                contacts = connection.Table<Contact>().ToList();
+                _contacts = connection.Table<Contact>().ToList();
             }
 
-            if (contacts != null)
+            if (_contacts != null)
             {
                 // Prevents the list from getting duplicate entries
-                _contactListView.ItemsSource = contacts;
+                _contactListView.ItemsSource = _contacts;
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Filter when it changes
+            TextBox searchTextBox = sender as TextBox;
+            if (searchTextBox != null)
+            {
+                var searchText = searchTextBox.Text;
+
+                var filteredList = _contacts.Where(c => c.Name.ToLower().Contains(searchText.ToLower())).ToList();
+
+                // Get it to show the infomration here
+                _contactListView.ItemsSource = filteredList;
             }
         }
     }
