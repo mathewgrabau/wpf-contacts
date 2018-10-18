@@ -47,7 +47,7 @@ namespace ContactsApp
             {
                 connection.CreateTable<Contact>();
                 // Grabbing the data here.
-                _contacts = connection.Table<Contact>().ToList();
+                _contacts = connection.Table<Contact>().OrderBy(c => c.Name).ToList();
             }
 
             if (_contacts != null)

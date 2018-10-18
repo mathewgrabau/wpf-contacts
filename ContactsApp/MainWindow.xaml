@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactsApp"
+        xmlns:uc="clr-namespace:ContactsApp.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Margin="10">
@@ -15,11 +16,7 @@
             <ListView.ItemTemplate>
                 <!-- need the data template to render the data -->
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Name}"/>
-                        <TextBlock FontSize="15" Foreground="DodgerBlue" Text="{Binding Email}"/>
-                        <TextBlock FontSize="15" FontStyle="Italic" Text="{Binding PhoneNumber}"/>
-                    </StackPanel>
+                    <uc:ContactDisplayControl Contact="{Binding}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
