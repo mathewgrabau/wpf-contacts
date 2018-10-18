@@ -21,25 +21,41 @@ namespace ContactsApp.Controls
     /// </summary>
     public partial class ContactDisplayControl : UserControl
     {
-        private Contact contact;
-
         public Contact Contact
         {
-            get => contact;
-            set
-            {
-                contact = value;
-                nameTextBlock.Text = contact.Name;
-                phoneTextBlock.Text = contact.PhoneNumber;
-                emailTextBlock.Text = contact.Email;
-            }
+            get => (Contact)GetValue(ContactProperty);
+            set => SetValue(ContactProperty, value);
         }
 
         // Needed for the binding here.
+        public static readonly DependencyProperty ContactProperty =
+            DependencyProperty.Register("Contact", typeof(Contact), typeof(ContactDisplayControl), 
+                new PropertyMetadata(null, SetTextValues));
+
+        // Meta-data ends up defining the gathering/responding for data changing
 
         public ContactDisplayControl()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Type of the contact infomration for this.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void SetTextValues(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ContactDisplayControl instance)
+            {
+                if (e.NewValue is Contact newValue)
+                {
+                    instance.nameTextBlock.Text = newValue.Name;
+                    instance.phoneTextBlock.Text = newValue.PhoneNumber;
+                    instance.emailTextBlock.Text = newValue.Email;
+                }
+            }
+        }
+
     }
 }
